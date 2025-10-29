@@ -1,0 +1,51 @@
+package tech.ada.filmes_api.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import tech.ada.filmes_api.model.Filme;
+import tech.ada.filmes_api.repository.FilmeRepository;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class FilmeService {
+
+    private final FilmeRepository filmeRepository;
+
+    @Autowired
+    public FilmeService(FilmeRepository filmeRepository) {
+        this.filmeRepository = filmeRepository;
+    }
+
+    public Filme salvar(Filme filme) {
+        if (filme.getTitulo() == null || filme.getTitulo().isEmpty()) {
+            throw new IllegalArgumentException("O título d filme é obrigatório.");
+        }
+        return filmeRepository.save(filme);
+    }
+
+    public List<Filme> buscarTodos() {
+        return filmeRepository.findAll();
+    }
+
+    public Optional<Filme> buscarPorId(Long id) {
+        return filmeRepository.findById(id);
+    }
+
+    public void deletar(Long id) {
+        filmeRepository.deleteById(id);
+    }
+
+    public Filme atualizarCompleto(Long id, Filme filmeDetalhes) {
+        return buscarPorId(id).map(filmeExistente -> {
+            filmeExistente.setTitulo(filmeDetalhes.getTitulo());
+            filmeExistente.setAnoLancamento(filmeDetalhes.getAnoLancamento());
+            filmeExistente.setDiretor(filmeDetalhes.getDiretor());
+            filmeExistente.setGenero(filmeDetalhes.getGenero());
+            filmeExistente.setSinopse(filmeDetalhes.getSinopse());
+            return filmeRepository.save(filmeExistente);
+        }) .orElseThrow(() ->
+                new IllegalArgumentException("Filme não encontrado para o ID: " + id));
+    }
+}
