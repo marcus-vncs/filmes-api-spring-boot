@@ -33,7 +33,7 @@ public class FilmeService {
         return filmeRepository.findById(id);
     }
 
-    public void deletar(Long id) {
+    public void deletarPorId(Long id) {
         filmeRepository.deleteById(id);
     }
 
