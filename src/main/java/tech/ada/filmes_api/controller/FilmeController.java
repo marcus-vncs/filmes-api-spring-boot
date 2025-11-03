@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import tech.ada.filmes_api.model.Filme;
 import tech.ada.filmes_api.service.FilmeService;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -21,6 +22,11 @@ public class FilmeController {
     }
 
     @GetMapping
+    public ResponseEntity<List<Filme>> buscarTodos() {
+        return ResponseEntity.ok(filmeService.buscarTodos()); // HTTP 200 OK
+    }
+
+    @GetMapping("/{id}")
     public ResponseEntity<Filme> buscarPorId(@PathVariable Long id) {
         return filmeService.buscarPorId(id)
                 .map(filme -> ResponseEntity.ok(filme))
