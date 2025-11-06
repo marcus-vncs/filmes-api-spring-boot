@@ -12,7 +12,7 @@ Este projeto implementa uma API RESTful completa para o cadastro e manutenção 
 | **Linguagem** | Java (versão definida no pom.xml) |
 | **Persistência** | Spring Data JPA / Hibernate |
 | **Banco de Dados** | H2 Database (em memória, para desenvolvimento) |
-| **Utilitário** | Lombok (para reduzir código boilerplate) |
+| **Utilitário** | Lombok (para reduzir código, Construtor e Getters e Setters) |
 | **Build Tool** | Maven (ou Gradle, dependendo da sua escolha) |
 
 ---
@@ -23,7 +23,7 @@ O projeto segue a arquitetura de camadas amplamente utilizada em aplicações Sp
 
 * **`model`:** Contém a Entidade `Filme` (mapeada para o banco de dados).
 * **`repository`:** Interface `FilmeRepository` para acesso aos dados (via JpaRepository).
-* **`service`:** Camada de Regras de Negócio, onde a lógica de atualização parcial (`PATCH`) foi implementada.
+* **`service`:** Camada de Regras de Negócio, onde estão a lógica dos verbos HTTP. 
 * **`controller`:** A camada de interface REST, responsável por mapear as requisições HTTP.
 
 ## 🚀 Como Executar o Projeto
